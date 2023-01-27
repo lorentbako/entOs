@@ -1,0 +1,29 @@
+.searchList {
+  border: 1px solid rgb(151, 151, 151);
+  border-radius: 1rem;
+  padding: 5px 15px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.searchList > div {
+  width: 50%;
+}
+
+.searchList > div > select {
+  width: 50%;
+  font-size: 1em;
+  padding: 5px;
+  margin: 5px 0;
+  border-radius: 1rem;
+}
+
+button {
+  margin: 0.1rem;
+}
+
+button:hover {
+  background-color: rgb(255, 180, 180);
+}

@@ -1,0 +1,38 @@
+.container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+nav {
+  background-color: lightgray;
+
+  border-radius: 2rem;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+li {
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-right: 20px;
+  display: inline-block;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  font-size: 1.2em;
+}
+
+li:hover {
+  background-color: rgb(145, 205, 255);
+}
+
+span {
+  font-size: 0.8rem;
+}
