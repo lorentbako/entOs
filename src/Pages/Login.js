@@ -1,31 +1,36 @@
-import React, { useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const Login = () => {
-  const [credentials, setCredentials] = useState({ email: "", password: "" });
   const auth = getAuth();
-  signInWithEmailAndPassword(auth, credentials.email, credentials.password)
-    .then((userCredential) => {
-      // Signed in
-      const user = userCredential.user;
-      console.log(user);
-      // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-    });
-
+  let errorMessage = "";
+  const handleLogin = (event) => {
+    event.preventDefault();
+    const { email, password } = event.target.elements;
+    signInWithEmailAndPassword(auth, email.value, password.value)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+        // ...
+      })
+      .catch((error) => {
+        errorMessage = error.message;
+      });
+  };
   return (
     <div>
       <h1> Login</h1>
-
-      <form onSubmit={signInWithEmailAndPassword}>
-        <input placeholder="E-mail" value={credentials.email} />
-        <input placeholder="Password" value={credentials.password} />
-        <button type="submit" onSubmit={() => setCredentials()}>
-          Submit
-        </button>
+      {errorMessage && <p>{errorMessage}</p>}
+      <form onSubmit={handleLogin}>
+        <label>
+          Email
+          <input name="email" type="email" placeholder="Email" />
+        </label>
+        <label>
+          Password
+          <input name="password" type="password" placeholder="Password" />
+        </label>
+        <button type="submit">Log in</button>
       </form>
     </div>
   );
