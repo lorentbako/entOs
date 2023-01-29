@@ -22,7 +22,7 @@ const getShipmentCompanies = async (
     }
   };
   //populate the shipments per company if no filters are selected
-  if (areaSearch[0].id === "all" && countrySearch[0].id === "all") {
+  if (areaSearch[0].id === "none" && countrySearch[0].id === "none") {
     for (const shipment of responseData) {
       populateFilteredShipmentData(shipment, companiesShipments);
     }
@@ -30,7 +30,7 @@ const getShipmentCompanies = async (
   }
 
   // when we are using both filters
-  else if (areaSearch[0].value !== "all" && countrySearch[0].id !== "all") {
+  else if (areaSearch[0].value !== "none" && countrySearch[0].id !== "none") {
     for (const shipment of responseData) {
       if (
         areaSearch.find((area) => area.id === shipment.areaId) &&
@@ -60,7 +60,7 @@ const getShipmentCompanies = async (
         populateFilteredShipmentData(shipment, companiesShipments);
       }
     }
-    return companiesShipments
+    return companiesShipments;
   }
 };
 

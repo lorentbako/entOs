@@ -20,10 +20,14 @@
   border-radius: 1rem;
 }
 
-button {
+.button {
+  border: 1px solid rgb(141, 141, 141);
+  border-radius: 1rem;
   margin: 0.1rem;
+  color: white;
+  background-color: #438486;
 }
 
-button:hover {
+.buttonHover:hover {
   background-color: rgb(255, 180, 180);
 }

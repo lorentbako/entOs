@@ -4,7 +4,7 @@ import getListData from "../HOC/getListData";
 import getShipmentCompanies from "../HOC/getShipmentCompanies";
 import styles from "../Styles/SearchPage.module.css";
 
-const listAll = [{ id: "all", value: "all" }];
+const listAll = [{ id: "none", value: "none" }];
 
 const SearchList = () => {
   const [listCountries, setListCountries] = useState([]);
@@ -19,20 +19,20 @@ const SearchList = () => {
       (country) => country.value === event.target.value
     );
 
-    if (event.target.value === "all") {
+    if (event.target.value === "none") {
       setCountrySearch(listAll);
     } else if (
       !countrySearch.find((country) => country.value === selectedCountry.value)
     ) {
       setCountrySearch(
-        countrySearch.filter((country) => country.value !== "all")
+        countrySearch.filter((country) => country.value !== "none")
       );
       setCountrySearch((prev) => [...prev, selectedCountry]);
     }
   };
   const handleCountryRemove = (countryId) => {
     if (countrySearch.length === 1) {
-      if (countrySearch[0].value === "all") {
+      if (countrySearch[0].value === "none") {
         return;
       }
       setCountrySearch(listAll);
@@ -48,17 +48,17 @@ const SearchList = () => {
     const selectedArea = listAreas.find(
       (area) => area.value === event.target.value
     );
-    if (event.target.value === "all") {
+    if (event.target.value === "none") {
       setAreaSearch(listAll);
     } else if (!areaSearch.find((area) => area.value === selectedArea.value)) {
-      setAreaSearch(areaSearch.filter((area) => area.value !== "all"));
+      setAreaSearch(areaSearch.filter((area) => area.value !== "none"));
       setAreaSearch((prev) => [...prev, selectedArea]);
     }
   };
 
   const handleAreaRemove = (areaId) => {
     if (areaSearch.length === 1) {
-      if (areaSearch[0].value === "all") {
+      if (areaSearch[0].value === "none") {
         return;
       }
       setAreaSearch(listAll);
@@ -94,7 +94,7 @@ const SearchList = () => {
         <div>
           <label htmlFor="country">Choose a country: </label>
           <select name="country" id="country" onChange={handleCountryChange}>
-            <option value="all" defaultValue>
+            <option value="none" defaultValue>
               All
             </option>
             {listCountries &&
@@ -109,7 +109,7 @@ const SearchList = () => {
         <div>
           <label htmlFor="area">Choose a area: </label>
           <select name="area" id="area" onChange={handleAreaChange}>
-            <option value="all" defaultValue>
+            <option value="none" defaultValue>
               All
             </option>
             {listAreas &&
@@ -125,6 +125,9 @@ const SearchList = () => {
           {countrySearch &&
             countrySearch.map((country) => (
               <button
+                className={`${styles.button} ${
+                  country.id !== "none" ? styles.buttonHover : ""
+                }`}
                 key={country.id}
                 onClick={() => handleCountryRemove(country.id)}
               >
@@ -136,13 +139,20 @@ const SearchList = () => {
           <span>Filtering by: </span>
           {areaSearch &&
             areaSearch.map((area) => (
-              <button key={area.id} onClick={() => handleAreaRemove(area.id)}>
+              <button
+                className={`${styles.button} ${
+                  area.id !== "none" ? styles.buttonHover : ""
+                }`}
+                key={area.id}
+                onClick={() => handleAreaRemove(area.id)}
+              >
                 {area.value}
               </button>
             ))}
         </div>
       </div>
       <div>
+        {!shipmentCompanies && <p>Loading Data...</p>}
         {shipmentCompanies &&
           Object.entries(shipmentCompanies)
             .sort((a, b) => b[1] - a[1])

@@ -1,26 +1,28 @@
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useContext, useState } from "react";
+import { AuthContext } from "../Auth/Auth";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
+  const authCtx = useContext(AuthContext);
+  console.log(authCtx);
+
   const auth = getAuth();
-  let errorMessage = "";
   const handleLogin = (event) => {
     event.preventDefault();
     const { email, password } = event.target.elements;
     signInWithEmailAndPassword(auth, email.value, password.value)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        console.log(user);
-        // ...
-      })
+      .then(() => navigate("/account"))
       .catch((error) => {
-        errorMessage = error.message;
+        setErrorMessage(error.message.slice(22, -2));
       });
   };
   return (
     <div>
       <h1> Login</h1>
-      {errorMessage && <p>{errorMessage}</p>}
+      <p>{errorMessage}</p>
       <form onSubmit={handleLogin}>
         <label>
           Email

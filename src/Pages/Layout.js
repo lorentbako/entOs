@@ -1,33 +1,55 @@
-import React from "react";
-import { Link, Outlet } from "react-router-dom";
-import { AuthProvider } from "../Auth/Auth.js";
+import React, { useContext } from "react";
+import { NavLink, Link, Outlet } from "react-router-dom";
 import styles from "../Styles/Layout.module.css";
+import { getAuth, signOut } from "firebase/auth";
+import { AuthContext } from "../Auth/Auth.js";
 
 const Layout = () => {
+  const authCtx = useContext(AuthContext);
+  console.log(authCtx);
+  const auth = getAuth();
+  const handleLogout = () =>
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        // An error happened.
+      });
   return (
-    <AuthProvider>
-      <div className={styles.container}>
-        <nav>
-          <ul>
+    <div className={styles.container}>
+      <nav>
+        <ul>
+          <li>
+            <NavLink className={styles.Link} to="/">
+              Search
+            </NavLink>
+          </li>
+          {authCtx.currentUser && (
             <li>
-              <Link to="/">Search</Link>
+              <Link className={styles.Link} to="/account">
+                Account
+              </Link>
             </li>
-            <li>
-              <Link to="/account">Account</Link>
-            </li>
+          )}
+          {!authCtx.currentUser && (
             <li>
               <Link className={styles.Link} to="/login">
                 Login
               </Link>
             </li>
+          )}
+          {authCtx.currentUser && (
             <li>
-              <Link to="/">Logout</Link>
+              <Link className={styles.Link} to="/login" onClick={handleLogout}>
+                Logout
+              </Link>
             </li>
-          </ul>
-        </nav>
-        <Outlet />
-      </div>
-    </AuthProvider>
+          )}
+        </ul>
+      </nav>
+      <Outlet />
+    </div>
   );
 };
 
