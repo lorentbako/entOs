@@ -20,16 +20,11 @@ const Layout = () => {
     <div className={styles.container}>
       <nav>
         <ul>
-          <li>
-            <NavLink className={styles.Link} to="/">
-              Search
-            </NavLink>
-          </li>
           {authCtx.currentUser && (
             <li>
-              <Link className={styles.Link} to="/account">
-                Account
-              </Link>
+              <NavLink className={styles.Link} to="/">
+                Search
+              </NavLink>
             </li>
           )}
           {!authCtx.currentUser && (
