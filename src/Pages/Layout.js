@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { NavLink, Link, Outlet } from "react-router-dom";
 import styles from "../Styles/Layout.module.css";
 import { getAuth, signOut } from "firebase/auth";
-import { AuthContext } from "../Auth/Auth.js";
+import { AuthContext } from "../store/Auth.js";
 
 const Layout = () => {
   const authCtx = useContext(AuthContext);
