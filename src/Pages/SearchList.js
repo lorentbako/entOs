@@ -64,9 +64,7 @@ const SearchList = () => {
       setAreaSearch(listAll);
       return;
     }
-    setTimeout(() => {
-      setAreaSearch(areaSearch.filter((area) => area.id !== areaId));
-    }, 2000);
+    setAreaSearch(areaSearch.filter((area) => area.id !== areaId));
   };
 
   useEffect(() => {
