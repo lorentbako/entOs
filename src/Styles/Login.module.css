@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.label {
+  margin-bottom: 10px;
+}
+
+.inputAreas {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  border: 1px solid gray;
+}
+
+.loginButton {
+  width: 20%;
+  padding: 10px;
+  background-color: rgb(5, 116, 128);
+  color: white;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 1rem;
+}
+
+.error {
+  color: white;
+  background-color: rgb(234, 95, 95);
+  padding: 3px;
+}

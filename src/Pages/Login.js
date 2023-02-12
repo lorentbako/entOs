@@ -2,6 +2,7 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useContext, useState } from "react";
 import { AuthContext } from "../Auth/Auth";
 import { useNavigate } from "react-router-dom";
+import styles from "./../Styles/Login.module.css";
 
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -21,18 +22,35 @@ const Login = () => {
   };
   return (
     <div>
-      <h1> Login</h1>
-      <p>{errorMessage}</p>
       <form onSubmit={handleLogin}>
-        <label>
-          Email
-          <input name="email" type="email" placeholder="Email" />
-        </label>
-        <label>
-          Password
-          <input name="password" type="password" placeholder="Password" />
-        </label>
-        <button type="submit">Log in</button>
+        <div className={styles.container}>
+          <div className={styles.inputContainer}>
+            <label className={styles.label} htmlFor="email">
+              Email
+            </label>
+            <input
+              className={styles.inputAreas}
+              name="email"
+              type="email"
+              placeholder="your@email.com"
+            />
+          </div>
+          <div className={styles.inputContainer}>
+            <label className={styles.label} htmlFor="password">
+              Password
+            </label>
+            <input
+              className={styles.inputAreas}
+              name="password"
+              type="password"
+              placeholder="********"
+            />
+          </div>
+          <button className={styles.loginButton} type="submit">
+            Log in
+          </button>
+          {errorMessage && <p className={styles.error}>{errorMessage}</p>}
+        </div>
       </form>
     </div>
   );
