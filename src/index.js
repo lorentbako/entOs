@@ -4,12 +4,15 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { AuthProvider } from "./store/Auth";
+import { ListsProvider } from "./store/lists";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <AuthProvider>
-    <App />
-  </AuthProvider>
+  <ListsProvider>
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  </ListsProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

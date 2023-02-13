@@ -6,7 +6,6 @@ import { AuthContext } from "../store/Auth.js";
 
 const Layout = () => {
   const authCtx = useContext(AuthContext);
-  console.log(authCtx);
   const auth = getAuth();
   const handleLogout = () =>
     signOut(auth)

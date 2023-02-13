@@ -8,7 +8,6 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const authCtx = useContext(AuthContext);
-  console.log(authCtx);
 
   const auth = getAuth();
   const handleLogin = (event) => {

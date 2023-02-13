@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import CardCompanies from "../Components/CardCompanies";
-import getListData from "../HOC/getListData";
 import getShipmentCompanies from "../HOC/getShipmentCompanies";
 import styles from "../Styles/SearchPage.module.css";
+import { ListContext } from "../store/lists";
 
 const listAll = [{ id: "none", value: "none" }];
 
 const SearchList = () => {
+  const listsCtx = useContext(ListContext);
   const [listCountries, setListCountries] = useState([]);
   const [listAreas, setListAreas] = useState([]);
   const [areaSearch, setAreaSearch] = useState(listAll);
@@ -66,27 +67,23 @@ const SearchList = () => {
     }
     setAreaSearch(areaSearch.filter((area) => area.id !== areaId));
   };
+  useEffect(() => {
+    setListCountries(listsCtx.listCountries);
+    setListAreas(listsCtx.listAreas);
+  }, [listsCtx.listCountries, listsCtx.listAreas]);
 
   useEffect(() => {
     async function fetchData() {
-      //Get the list of Countries and Companies
-      const [countriesList, companiesList] = await getListData(0);
-      setListCountries(countriesList);
-
-      //get the list of Areas
-      const areasList = await getListData(1);
-      setListAreas(areasList);
-
       // retrive final data
       const shipmentCompanies = await getShipmentCompanies(
         areaSearch,
         countrySearch,
-        companiesList
+        listsCtx.companiesList
       );
       setShipmentCompanies(shipmentCompanies);
     }
     fetchData();
-  }, [areaSearch, countrySearch]);
+  }, [areaSearch, countrySearch, listsCtx.companiesList]);
 
   return (
     <div>
