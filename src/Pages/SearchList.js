@@ -7,9 +7,7 @@ import { ListContext } from "../store/lists";
 const listAll = [{ id: "none", value: "none" }];
 
 const SearchList = () => {
-  const listsCtx = useContext(ListContext);
-  const [listCountries, setListCountries] = useState([]);
-  const [listAreas, setListAreas] = useState([]);
+  const { listAreas, listCountries, companiesList } = useContext(ListContext);
   const [areaSearch, setAreaSearch] = useState(listAll);
   const [countrySearch, setCountrySearch] = useState(listAll);
   const [shipmentCompanies, setShipmentCompanies] = useState("");
@@ -67,10 +65,6 @@ const SearchList = () => {
     }
     setAreaSearch(areaSearch.filter((area) => area.id !== areaId));
   };
-  useEffect(() => {
-    setListCountries(listsCtx.listCountries);
-    setListAreas(listsCtx.listAreas);
-  }, [listsCtx.listCountries, listsCtx.listAreas]);
 
   useEffect(() => {
     async function fetchData() {
@@ -78,12 +72,12 @@ const SearchList = () => {
       const shipmentCompanies = await getShipmentCompanies(
         areaSearch,
         countrySearch,
-        listsCtx.companiesList
+        companiesList
       );
       setShipmentCompanies(shipmentCompanies);
     }
     fetchData();
-  }, [areaSearch, countrySearch, listsCtx.companiesList]);
+  }, [areaSearch, countrySearch, companiesList]);
 
   return (
     <div>

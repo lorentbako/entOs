@@ -14,12 +14,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             {authCtx?.currentUser && <Route index element={<SearchList />} />}
+            {!authCtx?.currentUser && <Route index element={<Login />} />}
             {!authCtx?.currentUser && (
               <Route path="login" element={<Login />} />
             )}
-            {authCtx?.currentUser && (
-              <Route path="*" element={<SearchList />} />
-            )}
+            {!authCtx?.currentUser && <Route path="*" element={<Login />} />}
           </Route>
         </Routes>
       </BrowserRouter>
